@@ -1,0 +1,35 @@
+<section>
+  <div class="pb-[10rem]">Browsed file</div>
+
+  <button
+    id="lk-google-picker-btn"
+    lkGooglePicker
+    (click)="openPicker()"
+    (on-loaded)="onLoaded()"
+    (on-cancel)="onCancel()"
+    (on-picked)="onPicked($event)"
+  >
+    Load
+  </button>
+</section>
+
+<div id="result"></div>
+
+<div
+  id="g_id_onload"
+  data-client_id="996313332086-t0e96n8s71mga0k254m48qirs77fjai9.apps.googleusercontent.com"
+  data-context="signin"
+  data-ux_mode="popup"
+  data-login_uri="http://localhost"
+  data-auto_prompt="false"
+></div>
+
+<div
+  class="g_id_signin"
+  data-type="standard"
+  data-shape="rectangular"
+  data-theme="outline"
+  data-text="signin_with"
+  data-size="large"
+  data-logo_alignment="left"
+></div>
