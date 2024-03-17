@@ -1,5 +1,14 @@
-<section>
-  <div class="pb-[10rem]">Browsed file</div>
+<div class="google-drive">
+  <asl-google-signin-button *ngIf="!loggedIn"> </asl-google-signin-button>
 
-  <button (click)="openPicker()">Load</button>
-</section>
+  <div *ngIf="loggedIn && pickerApiLoaded">
+    <img [src]="user.photoUrl" alt="User profile picture" />
+    <div>
+      <h4>{{ user.name }}</h4>
+      <p>{{ user.email }}</p>
+    </div>
+    <button (click)="launchPicker()">Select Files from Google Drive</button>
+  </div>
+
+  <div *ngIf="loggedIn && !pickerApiLoaded">Loading Google Drive Picker...</div>
+</div>
