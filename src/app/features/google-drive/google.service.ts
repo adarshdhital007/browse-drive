@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -13,16 +14,21 @@ export class GoogleService {
   clientId =
     '996313332086-t0e96n8s71mga0k254m48qirs77fjai9.apps.googleusercontent.com';
   code!: string | null;
+  encodedCode!: string | null;
 
   codeExtractor() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const encodedCode = urlParams.get('code');
+    let encodedCode: string | null = null;
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      encodedCode = urlParams.get('code');
+    }
 
     if (encodedCode) {
       this.code = decodeURIComponent(encodedCode);
       console.log('Code:', this.code);
     }
   }
+
   public getAccessToken(): Observable<string> {
     this.codeExtractor();
 
@@ -43,8 +49,8 @@ export class GoogleService {
     return this.http.post(tokenUrl, body, { headers }).pipe(
       map((response: any) => response.access_token),
       catchError((error) => {
-        console.error('Error exchanging code for access token:', error);
-        throw error; // Rethrow the error to be caught by the subscriber
+        console.error('error for getting access token:', error);
+        throw error;
       })
     );
   }

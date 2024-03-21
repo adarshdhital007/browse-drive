@@ -1,46 +1,51 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GoogleService } from './google.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 declare const gapi: any;
 declare const google: any;
+declare const window: any;
 
 @Component({
   standalone: true,
   selector: 'app-google-drive',
   templateUrl: './google-drive.component.html',
   styleUrls: ['./google-drive.component.scss'],
-  imports: [HttpClientModule, CommonModule],
   providers: [GoogleService],
+  imports: [CommonModule, HttpClientModule],
 })
-export class GoogleDriveComponent {
-  loggedIn: boolean = false;
-  pickerApiLoaded: boolean = false;
-  accessToken!: string | null;
-  showBrowseButton: boolean = false;
+export class GoogleDriveComponent implements OnInit {
+  loggedIn = false;
+  pickerApiLoaded = false;
+  accessToken: string | null = null;
+  showBrowseButton = false;
+  selectedFile: any;
 
-  constructor(private gserv: GoogleService) {
-    this.loadPickerApi();
+  clientId =
+    '996313332086-t0e96n8s71mga0k254m48qirs77fjai9.apps.googleusercontent.com';
+  redirectUri = 'http://localhost:4200/google';
+  scope = 'https://www.googleapis.com/auth/drive.file';
+  responseType = 'code';
+  state = 'state_parameter_passthrough_value';
+
+  constructor(private gserv: GoogleService) {}
+
+  ngOnInit() {
     this.gserv.getAccessToken().subscribe(
       (accessToken) => {
         this.accessToken = accessToken;
         console.log('Access Token:', this.accessToken);
-        this.loggedIn = true; // Set loggedIn to true after getting the access token
-        this.showBrowseButton = true; // Show the browse button after login
-        this.loadPickerApi(); // Load picker API after login
+        this.loggedIn = true;
+        this.showBrowseButton = true;
+        this.loadPickerApi();
       },
       (error) => {
         console.error('Error getting access token:', error);
       }
     );
   }
-  clientId =
-    '996313332086-t0e96n8s71mga0k254m48qirs77fjai9.apps.googleusercontent.com';
-  redirectUri = '/google';
-  scope = 'https://www.googleapis.com/auth/drive.file';
-  responseType = 'code';
-  state = 'state_parameter_passthrough_value';
+
   loginGoogle() {
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${this.clientId}&redirect_uri=${this.redirectUri}&scope=${this.scope}&response_type=${this.responseType}&state=${this.state}`;
     window.location.href = authUrl;
@@ -48,13 +53,13 @@ export class GoogleDriveComponent {
 
   launchPicker() {
     this.createPicker({
-      clientId:
-        '996313332086-t0e96n8s71mga0k254m48qirs77fjai9.apps.googleusercontent.com',
+      clientId: this.clientId,
       viewId: google.picker.ViewId.DOCS,
-      origin: window.location.protocol + '//' + window.location.host,
+      origin: `${window.location.protocol}//${window.location.host}`,
       multiselect: false,
     }).then((data) => {
       console.log('Selected file:', data);
+      this.selectedFile = data.file;
     });
   }
 
@@ -71,6 +76,7 @@ export class GoogleDriveComponent {
       });
     });
   }
+
   async createPicker(options: any) {
     return new Promise<any>((resolve) => {
       const picker = new google.picker.PickerBuilder()
