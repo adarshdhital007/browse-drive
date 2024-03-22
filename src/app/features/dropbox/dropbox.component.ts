@@ -8,17 +8,11 @@ declare const Dropbox: any;
   selector: 'app-dropbox',
   templateUrl: './dropbox.component.html',
 })
-export class OnedriveComponent implements OnInit, OnDestroy {
+export class OnedriveComponent {
   public dbxAuth!: DbxAuth;
   private subscription!: Subscription;
   fileUrl: string;
   constructor(private authService: AuthService, private router: Router) {}
-
-  ngOnInit() {}
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 
   handleAuthorization() {
     const urlAuth =
