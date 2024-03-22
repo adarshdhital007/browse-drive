@@ -28,7 +28,7 @@ export class GoogleDriveComponent implements OnInit, OnDestroy {
 
   clientId =
     '996313332086-t0e96n8s71mga0k254m48qirs77fjai9.apps.googleusercontent.com';
-  redirectUri = 'https://browse-drive.vercel.app/google';
+  redirectUri = 'http://localhost:4200/google';
   scope = 'https://www.googleapis.com/auth/drive.file';
   responseType = 'code';
   state = 'state_parameter_passthrough_value';
@@ -65,6 +65,7 @@ export class GoogleDriveComponent implements OnInit, OnDestroy {
     this.createPicker({
       clientId: this.clientId,
       viewId: google.picker.ViewId.DOCS,
+
       origin: `${window.location.protocol}//${window.location.host}`,
       multiselect: false,
     }).then((data: any) => {
@@ -94,6 +95,7 @@ export class GoogleDriveComponent implements OnInit, OnDestroy {
       const picker = new google.picker.PickerBuilder()
         .addView(new google.picker.DocsView())
         .setOAuthToken(this.accessToken)
+        .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
         .setCallback((data: any) => {
           if (
             data[google.picker.Response.ACTION] === google.picker.Action.PICKED
