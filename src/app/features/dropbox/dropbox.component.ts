@@ -18,7 +18,7 @@ export class DXComponent {
       success: (files: any) => {
         console.log('Files selected:', files);
         if (files.length > 0) {
-          this.fileUrl = files[0].url;
+          this.fileUrl = files[0].link;
         }
       },
       cancel: () => {
