@@ -5,7 +5,7 @@ import { IcloudComponent } from './features/icloud/icloud.component';
 import { DXComponent } from './features/dropbox/dropbox.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'google', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'google', component: GoogleDriveComponent },
   { path: 'demo', component: DXComponent },
   { path: 'icloud', component: IcloudComponent },
