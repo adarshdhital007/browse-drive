@@ -1,39 +1,31 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { dropboxConfig, DbxAuth } from '../../../../config';
-import { Subscription } from 'rxjs';
-import { AuthService } from './scripts/dropbox.service';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 declare const Dropbox: any;
+
 @Component({
+  standalone: true,
+  imports: [CommonModule],
   selector: 'app-dropbox',
   templateUrl: './dropbox.component.html',
 })
-export class DropBoxComponent {
-  public dbxAuth!: DbxAuth;
-  private subscription!: Subscription;
+export class DXComponent {
   fileUrl: string;
-  constructor(private authService: AuthService, private router: Router) {}
 
-  handleAuthorization() {
-    const urlAuth =
-      `https://www.dropbox.com/oauth2/authorize?` +
-      `client_id=${dropboxConfig.clientId}` +
-      `&redirect_uri=${dropboxConfig.redirectUri}` +
-      `&response_type=${dropboxConfig.responseType}`;
-    window.location.href = urlAuth;
-  }
+  constructor() {}
 
   openDropboxChooser() {
     const options = {
       success: (files: any) => {
         console.log('Files selected:', files);
-        this.fileUrl = files.url;
+        if (files.length > 0) {
+          this.fileUrl = files[0].url;
+        }
       },
       cancel: () => {
         console.log('Chooser cancelled');
       },
       linkType: 'direct',
-      multiselect: true,
+      multiselect: false,
       extensions: ['.pdf', '.doc', '.docx'],
     };
 
