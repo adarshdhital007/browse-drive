@@ -8,7 +8,7 @@ declare const Dropbox: any;
   selector: 'app-dropbox',
   templateUrl: './dropbox.component.html',
 })
-export class OnedriveComponent {
+export class DropBoxComponent {
   public dbxAuth!: DbxAuth;
   private subscription!: Subscription;
   fileUrl: string;
