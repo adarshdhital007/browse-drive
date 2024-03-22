@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { GoogleDriveComponent } from './features/google-drive/google-drive.component';
-import { OnedriveComponent } from './features/onedrive/onedrive.component';
+import { OnedriveComponent } from './features/dropbox/dropbox.component';
 import { IcloudComponent } from './features/icloud/icloud.component';
 
 export const routes: Routes = [

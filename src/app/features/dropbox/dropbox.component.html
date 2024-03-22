@@ -1,16 +1,17 @@
 <div class="box">
   <i class="fab fa-dropbox fa-3x"></i>
-  <button
+  <!-- <button
     class="btn btn-primary"
     type="button"
     (click)="handleAuthorization()"
     [disabled]="dbxAuth.accessToken"
   >
     Authorize me!
-  </button>
+  </button> -->
   <button class="btn btn-primary" type="button" (click)="openDropboxChooser()">
     Browse
   </button>
+  <a [href]="fileUrl">Download file</a>
   <!-- Container for Dropbox Chooser Button -->
   <div id="container"></div>
 </div>
