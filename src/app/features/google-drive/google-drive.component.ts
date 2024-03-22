@@ -28,7 +28,7 @@ export class GoogleDriveComponent implements OnInit, OnDestroy {
 
   clientId =
     '996313332086-t0e96n8s71mga0k254m48qirs77fjai9.apps.googleusercontent.com';
-  redirectUri = 'https://browse-drive.vercel.app/google';
+  redirectUri = 'http://localhost:4200/google';
   scope = 'https://www.googleapis.com/auth/drive.file';
   responseType = 'code';
   state = 'state_parameter_passthrough_value';

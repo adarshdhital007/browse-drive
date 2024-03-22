@@ -3,16 +3,30 @@
     *ngIf="!showBrowseButton"
     class="login_button"
     (click)="loginGoogle()"
+    style="padding: 15px"
   >
     Login to Google
   </button>
 
-  <div *ngIf="showBrowseButton">
-    <a target="_blank" [href]="downloadLink" (click)="downloadFile()"
+  <div
+    *ngIf="showBrowseButton"
+    style="display: flex; flex-direction: column; padding: 15px"
+  >
+    <a
+      target="_blank"
+      style="
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        padding-bottom: 10px;
+      "
+      *ngIf="downloadLink"
+      [href]="downloadLink"
+      (click)="downloadFile()"
       >Download file</a
     >
 
-    <button class="login_button" (click)="launchPicker()">
+    <button class="login_button" style="padding: 15px" (click)="launchPicker()">
       Browse your drive
     </button>
   </div>
