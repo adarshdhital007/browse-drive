@@ -26,7 +26,7 @@ export class DXComponent {
       },
       linkType: 'direct',
       multiselect: false,
-      extensions: ['.pdf', '.doc', '.docx'],
+      extensions: ['.pdf', '.doc', '.docx', '.png', '.jpeg', '.jpg', '.svg'],
     };
 
     const button = Dropbox.createChooseButton(options);
