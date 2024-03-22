@@ -10,7 +10,7 @@ export class GoogleService {
   constructor(private http: HttpClient) {}
 
   clientSecret = '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';
-  redirectUri = 'http://localhost:4200/google';
+  redirectUri = 'https://browse-drive.vercel.app/google';
   clientId =
     '996313332086-t0e96n8s71mga0k254m48qirs77fjai9.apps.googleusercontent.com';
   code!: string | null;
